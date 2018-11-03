@@ -2,11 +2,9 @@ package main
 
 import (
 	"bibby/cache"
+	"bibby/format"
 	"bibby/startup"
-	"bufio"
 	"fmt"
-	"os"
-	"sync"
 )
 
 const usage string = `bibby-ls [-cache=...] [file1.bib file2.bib ...]
@@ -21,32 +19,18 @@ func main() {
 		fmt.Println("cachedir:", cacheDir)
 		fmt.Println("bib files: ", bibFiles)
 	}
-	var wg sync.WaitGroup
 	for _, bibFile := range bibFiles {
-		wg.Add(1)
-		go ls(cacheDir, bibFile, &wg)
+		ls(cacheDir, bibFile)
 	}
-	wg.Wait()
 }
 
-func ls(cacheDir string, bibFile string, wg *sync.WaitGroup) {
+func ls(cacheDir string, bibFile string) {
 	if debug {
-		fmt.Println("go ls " + bibFile)
+		fmt.Println("ls " + bibFile)
 	}
-	cache.ReadAndDo(cacheDir, bibFile, "ls", printLine)
-	wg.Done()
+	cache.ReadAndDo(cacheDir, bibFile, "fzf", format.EntryToFZF, printLine)
 }
 
 func printLine(s string) {
 	fmt.Println(s)
-}
-
-func readStdin(doSomething func(string)) {
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		doSomething(scanner.Text()) // Println will add back the final '\n'
-	}
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-	}
 }

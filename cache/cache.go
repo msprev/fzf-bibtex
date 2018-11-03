@@ -8,13 +8,12 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"sync"
 	"time"
 )
 
 const debug = false
 
-func IsFresh(cacheDir string, bibFile string) bool {
+func IsFresh(cacheDir string, subcache string, bibFile string) bool {
 	cacheFile := cacheName(bibFile)
 	if debug {
 		fmt.Println(cacheFile)
@@ -24,13 +23,13 @@ func IsFresh(cacheDir string, bibFile string) bool {
 		if debug {
 			fmt.Println("waiting...")
 		}
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 	// lock!
 	lock(cacheDir, cacheFile)
 	defer unlock(cacheDir, cacheFile)
 	// read .timestamp file
-	toRead := filepath.Join(cacheDir, cacheFile+".timestamp")
+	toRead := filepath.Join(cacheDir, cacheFile+"."+subcache+".timestamp")
 	file, err := os.Open(toRead)
 	if err != nil {
 		if debug {
@@ -61,40 +60,31 @@ func IsFresh(cacheDir string, bibFile string) bool {
 	return true // cache is up to date
 }
 
-func Refresh(cacheDir string, bibFile string) {
-	RefreshAndDo(cacheDir, bibFile, "", nil)
-}
-
-func RefreshAndDo(cacheDir string, bibFile string, subcache string, doSomething func(string)) {
+func RefreshAndDo(cacheDir string, bibFile string, subcache string, formatter func(map[string]string) string, doSomething func(string)) {
 	// wait while locked
 	cacheFile := cacheName(bibFile)
 	for islocked(cacheDir, cacheFile) {
 		if debug {
 			fmt.Println("waiting...")
 		}
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 	lock(cacheDir, cacheFile)
 	defer unlock(cacheDir, cacheFile)
-	data := make(map[string]string)
-	bibtex.Parse(&data, bibFile, subcache, doSomething)
-	var wg sync.WaitGroup
-	for k, _ := range data {
-		wg.Add(1)
-		go write(filepath.Join(cacheDir, cacheFile), k, &data, &wg)
-	}
-	wg.Wait()
+	data := ""
+	bibtex.Parse(&data, bibFile, formatter, doSomething)
+	write(filepath.Join(cacheDir, cacheFile+"."+subcache), &data)
 	// update timestamp
 	timestamp := time.Now().UnixNano()
-	f, err := os.Create(filepath.Join(cacheDir, cacheFile) + ".timestamp")
+	f, err := os.Create(filepath.Join(cacheDir, cacheFile+"."+subcache+".timestamp"))
 	check(err)
 	defer f.Close()
 	f.WriteString(strconv.FormatInt(timestamp, 10))
 }
 
-func ReadAndDo(cacheDir string, bibFile string, subcache string, doSomething func(string)) {
-	if !IsFresh(cacheDir, bibFile) {
-		RefreshAndDo(cacheDir, bibFile, subcache, doSomething)
+func ReadAndDo(cacheDir string, bibFile string, subcache string, formatter func(map[string]string) string, doSomething func(string)) {
+	if !IsFresh(cacheDir, subcache, bibFile) {
+		RefreshAndDo(cacheDir, bibFile, subcache, formatter, doSomething)
 		return
 	}
 	cacheFile := cacheName(bibFile)
@@ -103,7 +93,7 @@ func ReadAndDo(cacheDir string, bibFile string, subcache string, doSomething fun
 		if debug {
 			fmt.Println("waiting...")
 		}
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 	lock(cacheDir, cacheFile)
 	defer unlock(cacheDir, cacheFile)
@@ -162,14 +152,13 @@ func check(e error) {
 	}
 }
 
-func write(cacheFile string, key string, data *map[string]string, wg *sync.WaitGroup) {
+func write(cacheFile string, data *string) {
 	if debug {
-		fmt.Println("writing " + cacheFile + "." + key)
-		fmt.Println((*data)[key])
+		fmt.Println("writing " + cacheFile)
+		fmt.Println(*data)
 	}
-	f, err := os.Create(cacheFile + "." + key)
+	f, err := os.Create(cacheFile)
 	check(err)
 	defer f.Close()
-	f.WriteString((*data)[key])
-	wg.Done()
+	f.WriteString(*data)
 }
