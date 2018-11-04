@@ -1,10 +1,10 @@
 package cache
 
 import (
-	"bibby/bibtex"
 	"bufio"
 	"encoding/base32"
 	"fmt"
+	"fzf-bibtex/bibtex"
 	"os"
 	"path/filepath"
 	"strconv"

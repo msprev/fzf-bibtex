@@ -74,7 +74,7 @@ keep.field { school }
 keep.field { volume }
 `
 	// create rsc file
-	tmpfile, err := ioutil.TempFile(os.TempDir(), "bibby.*.rsc")
+	tmpfile, err := ioutil.TempFile(os.TempDir(), "fzf-bibtex.*.rsc")
 	check(err)
 	defer os.Remove(tmpfile.Name()) // clean up
 	// fmt.Println(tmpfile.Name())

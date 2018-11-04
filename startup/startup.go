@@ -14,10 +14,10 @@ import (
 // - exits with error, if no bibFiles specified
 func ReadArgs(usage string) (string, []string) {
 	// read environment variables
-	cacheDir := os.Getenv("BIBBY_CACHEDIR")
+	cacheDir := os.Getenv("FZF_BIBTEX_CACHEDIR")
 	bibFiles := make([]string, 0)
-	if os.Getenv("BIBBY_SOURCES") != "" {
-		bibFiles = strings.Split(os.Getenv("BIBBY_SOURCES"), ":")
+	if os.Getenv("FZF_BIBTEX_SOURCES") != "" {
+		bibFiles = strings.Split(os.Getenv("FZF_BIBTEX_SOURCES"), ":")
 	}
 	// read commandline arguments
 	wordPtr := flag.String("cache", "", "path to cache directory for list")
@@ -26,8 +26,8 @@ func ReadArgs(usage string) (string, []string) {
 		flag.PrintDefaults()
 		fmt.Println("\nSet default arguments with environment variables:")
 		fmt.Println("")
-		fmt.Println("  $BIBBY_CACHEDIR \t path to cache directory")
-		fmt.Println("  $BIBBY_SOURCES \t paths to .bib files, separated by ':'")
+		fmt.Println("  $FZF_BIBTEX_CACHEDIR \t path to cache directory")
+		fmt.Println("  $FZF_BIBTEX_SOURCES \t paths to .bib files, separated by ':'")
 	}
 	flag.Parse()
 	// commandline arguments supercede environment variables

@@ -1,13 +1,13 @@
 package main
 
 import (
-	"bibby/cache"
-	"bibby/format"
-	"bibby/startup"
 	"fmt"
+	"fzf-bibtex/cache"
+	"fzf-bibtex/format"
+	"fzf-bibtex/startup"
 )
 
-const usage string = `bibby-ls [-cache=...] [file1.bib file2.bib ...]
+const usage string = `bibtex-ls [-cache=...] [file1.bib file2.bib ...]
   lists to stdout the content of .bib files, one record per line
 `
 
