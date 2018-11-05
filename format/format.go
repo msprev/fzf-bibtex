@@ -81,12 +81,6 @@ func EntryToFZF(entry map[string]string) string {
 		s += " "
 		s += "'" + entry["title"] + "'"
 		s += ", " + entry["school"]
-		s += entry["author"]
-		s += " "
-		s += "(" + entry["year"] + ")"
-		s += " "
-		s += "'" + entry["title"] + "'"
-		s += ", " + entry["school"]
 	default:
 		if _, ok := entry["editor"]; ok {
 			s += entry["editor"]
@@ -187,12 +181,6 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "'" + entry["title"] + "'"
 		s += ", unpublished manuscript"
 	case "phdthesis", "mastersthesis":
-		s += entry["author"]
-		s += " "
-		s += "(" + entry["year"] + ")"
-		s += " "
-		s += "'" + entry["title"] + "'"
-		s += ", " + entry["school"]
 		s += entry["author"]
 		s += " "
 		s += "(" + entry["year"] + ")"
