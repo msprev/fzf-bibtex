@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"fzf-bibtex/cache"
 	"fzf-bibtex/format"
@@ -22,8 +21,7 @@ func main() {
 		fmt.Println("cachedir: ", cacheDir)
 		fmt.Println("bib files: ", bibFiles)
 	}
-	// read keys from stdin into a slice
-	keys := readKeysFromStdin()
+	keys := startup.ReadKeysFromStdin()
 	if len(keys) == 0 {
 		os.Exit(-1)
 	}
@@ -51,22 +49,4 @@ func makePrinter(keys []string) func(string) {
 			}
 		}
 	}
-}
-
-func readKeysFromStdin() []string {
-	var keys []string
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		s := scanner.Text()
-		sl := strings.Split(s, "@")
-		keys = append(keys, "@"+sl[len(sl)-1])
-	}
-	if scanner.Err() != nil {
-		// handle error.
-		fmt.Fprintln(os.Stderr, "reading standard input:", scanner.Err())
-	}
-	if debug {
-		fmt.Println(keys)
-	}
-	return keys
 }

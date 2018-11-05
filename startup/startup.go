@@ -1,12 +1,16 @@
 package startup
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
+
+const debug = false
 
 // ReadArgs returns cacheDir, bibFiles read from environment variables and commandline
 // - returns temp dir from OS, if no cacheDir specified
@@ -65,6 +69,7 @@ func ReadArgs(usage string) (string, []string) {
 	return cacheDir, cleanedBfs
 }
 
+// helper function for ReadArgs
 func stringInSlice(a string, list []string) bool {
 	for _, b := range list {
 		if b == a {
@@ -72,4 +77,34 @@ func stringInSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func ReadKeysFromStdin() []string {
+	var keys []string
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		s := scanner.Text()
+		sl := strings.Split(s, "@")
+		k := "@" + stripansi(sl[len(sl)-1])
+		keys = append(keys, k)
+	}
+	if scanner.Err() != nil {
+		fmt.Fprintln(os.Stderr, "reading standard input:", scanner.Err())
+	}
+	if debug {
+		for _, k := range keys {
+			fmt.Println(k, len(k), "characters long")
+		}
+	}
+	return keys
+}
+
+// helper function for readKeysFromStdin
+// (code taken from https://github.com/acarl005/stripansi)
+const ansi = "[\u001B\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))"
+
+var re = regexp.MustCompile(ansi)
+
+func stripansi(str string) string {
+	return re.ReplaceAllString(str, "")
 }

@@ -7,19 +7,19 @@ A BibTeX source for fzf. Example use:
 To select items using fzf from a `.bib` file (as in image above):
 
 ``` {.bash}
-bibtex-ls references.bib | fzf --multi --reverse --ansi
+bibtex-ls references.bib | fzf --multi --ansi
 ```
 
 To select, then cite items (using pandoc '@' citation format) from a `.bib` file:
 
 ``` {.bash}
-bibtex-ls references.bib | fzf --multi --reverse --ansi | bibtex-cite
+bibtex-ls references.bib | fzf --multi --ansi | bibtex-cite
 ```
 
 To select, and then pretty print items (in markdown) from a `.bib` file:
 
 ``` {.bash}
-bibtex-ls references.bib | fzf --multi --reverse --ansi | bibtex-markdown references.bib
+bibtex-ls references.bib | fzf --multi --ansi | bibtex-markdown references.bib
 ```
 
 # Installation
@@ -57,15 +57,13 @@ let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
 let $FZF_BIBTEX_SOURCES = 'PATH-TO-BIBTEX-FILE'
 
 function! s:bibtex_cite_sink(lines)
-    let s=join(a:lines, "\n")
-    let r=system("bibtex-cite ", s)
-    execute ':normal! a' . r
+    let r=system("bibby-cite ", a:lines)
+    execute ':normal! i' . r
 endfunction
 
 function! s:bibtex_markdown_sink(lines)
-    let s=join(a:lines, "\n")
-    let r=system("bibtex-markdown ", s)
-    execute ':normal! a' . r
+    let r=system("bibtex-markdown ", a:lines)
+    execute ':normal! i' . r
 endfunction
 
 nnoremap <leader>c :call fzf#run({
