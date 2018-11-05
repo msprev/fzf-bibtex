@@ -1,44 +1,46 @@
 ![](https://d.pr/i/8uXzLx+ "screenshot")
 
-# Example use
+# fzf-bibtex
+
+A BibTeX source for fzf. Example use:
 
 To select items using fzf from a `.bib` file (as in image above):
 
 ``` {.bash}
-bibtex-ls -cache=. path-to-reference.bib | fzf
+bibtex-ls references.bib | fzf --multi --reverse --ansi
 ```
 
 To select, then cite items (using pandoc '@' citation format) from a `.bib` file:
 
 ``` {.bash}
-bibtex-ls -cache=. path-to-reference.bib | fzf | bibtex-cite
+bibtex-ls references.bib | fzf --multi --reverse --ansi | bibtex-cite
 ```
 
 To select, and then pretty print items (in markdown) from a `.bib` file:
 
 ``` {.bash}
-bibtex-ls -cache=. path-to-reference.bib | fzf | bibtex-markdown
+bibtex-ls references.bib | fzf --multi --reverse --ansi | bibtex-markdown references.bib
 ```
 
 # Installation
 
-**Requirements:**
+### Requirements
 
-- [Go](https://golang.org/)
 - [fzf](https://github.com/junegunn/fzf)
 - [bibtool](https://ctan.org/pkg/bibtool)
+- [go](https://golang.org/)
 
 On the Mac, these can be installed by [homebrew](https://brew.sh/):
 
 ``` {.bash}
-brew install go
 brew install fzf
 brew install bib-tool
+brew install go
 ```
 
-If you want vim integration, you will also need to install [fzf.vim](https://github.com/junegunn/fzf.vim).
+- [fzf.vim](https://github.com/junegunn/fzf.vim) (if you want vim integration)
 
-**Instructions:**
+### Installation
 
 ``` {.bash}
 git clone https://github.com/msprev/fzf-bibtex
@@ -46,7 +48,7 @@ cd fzf-bibtex
 go install ./...
 ```
 
-# Vim integration
+### Vim integration
 
 Add this to your `vimrc` file:
 
@@ -94,7 +96,7 @@ Lists to stdout the content of .bib files, one record per line.
 If the following environment variables are set, then these command line arguments can be omitted.
 
 - `FZF_BIBTEX_CACHEDIR`: path to a cache directory
-- `FZF_BIBTEX_SOURCES`: path to bibtex files; multiple entries separated by a '`:`'
+- `FZF_BIBTEX_SOURCES`: path to bibtex file; multiple items separated by a '`:`'
 
 The cache directory should be a suitable directory for bibtex-ls temporary files.
 Parsing BibTeX databases is computationally intensive, so the command caches the results.
@@ -108,7 +110,7 @@ bibtex-cite
 Pretty print citations (in pandoc '@' format) for selected `.bib` entries passed over stdin.
 
 ``` {.bash}
-bibtex-markdown [-cache=...]
+bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
 ```
 
 Pretty print items (in markdown) for selected `.bib` entries passed over stdin.

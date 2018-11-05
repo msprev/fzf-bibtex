@@ -16,7 +16,7 @@ const debug = false
 func main() {
 	cacheDir, bibFiles := startup.ReadArgs(usage)
 	if debug {
-		fmt.Println("cachedir:", cacheDir)
+		fmt.Println("cachedir: ", cacheDir)
 		fmt.Println("bib files: ", bibFiles)
 	}
 	for _, bibFile := range bibFiles {
