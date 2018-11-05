@@ -83,6 +83,23 @@ nnoremap <leader>m :call fzf#run({
 
 `<leader>m` will bring up fzf to insert pretty markdown versions of selected items.
 
+An insert mode mapping, typing '@@' brings up fzf to insert a citation:
+
+``` {.vim}
+function! s:bibtex_cite_sink_insert(lines)
+    let r=system("bibtex-cite ", a:lines)
+    execute ':normal! i' . r
+    call feedkeys('a', 'n')
+endfunction
+
+inoremap <buffer> <silent> @@ <c-g>u<c-o>:call fzf#run({
+                        \ 'source': 'bibtex-ls',
+                        \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+```
+
+
 # Command line use
 
 ``` {.bash}
