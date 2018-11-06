@@ -96,7 +96,7 @@ inoremap <buffer> <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': 'bibtex-ls',
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
-                        \ 'options': '--ansi --exact --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 ```
 
 
