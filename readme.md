@@ -88,7 +88,7 @@ An insert mode mapping, typing '@@' brings up fzf to insert a citation:
 ``` {.vim}
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
+    execute ':normal! a' . r
     call feedkeys('a', 'n')
 endfunction
 
@@ -96,7 +96,7 @@ inoremap <buffer> <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': 'bibtex-ls',
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
-                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+                        \ 'options': '--ansi --exact --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 ```
 
 
