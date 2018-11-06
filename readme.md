@@ -22,7 +22,7 @@ To select, and then pretty print items (in markdown) from a `.bib` file:
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-markdown references.bib
 ```
 
-# Installation
+## Installation
 
 ### Requirements
 
@@ -100,7 +100,7 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
 ```
 
 
-# Command line use
+## Command line use
 
 ``` {.bash}
 bibtex-ls [-cache=...] [file1.bib file2.bib ...]
@@ -132,7 +132,7 @@ Pretty print items (in markdown) for selected `.bib` entries passed over stdin.
 
 Cache directory may be set using the same environment variable as bibtex-ls.
 
-# Errors?
+## Errors?
 
 fzf-bibtex uses [bibtool](https://ctan.org/pkg/bibtool) to parse BibTeX
 files.  If there is an error, it is likely that your BibTeX file is not
@@ -164,11 +164,11 @@ keep.field { school }
 keep.field { volume }
 ```
 
-# Release notes
+## Release notes
 
 - 1.0 (4 November 2018)
     - first version
 
-# Similar
+## Similar
 
 - [unite-bibtex](https://github.com/msprev/unite-bibtex) -- no longer maintained; this replaces it.
