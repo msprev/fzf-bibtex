@@ -92,7 +92,7 @@ function! s:bibtex_cite_sink_insert(lines)
     call feedkeys('a', 'n')
 endfunction
 
-inoremap <buffer> <silent> @@ <c-g>u<c-o>:call fzf#run({
+inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': 'bibtex-ls',
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
