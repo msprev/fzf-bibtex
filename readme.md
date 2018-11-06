@@ -132,6 +132,38 @@ Pretty print items (in markdown) for selected `.bib` entries passed over stdin.
 
 Cache directory may be set using the same environment variable as bibtex-ls.
 
+# Errors?
+
+fzf-bibtex uses [bibtool](https://ctan.org/pkg/bibtool) to parse BibTeX
+files.  If there is an error, it is likely that your BibTeX file is not
+being parsed correctly.  You can locate the cause, and correct it, by
+running bibtool directly on your BibTeX file from the command line.  Look
+at any errors reported from:
+
+``` {.bash}
+bibtool references.bib -o parsed.bib
+```
+
+The BibTeX fields that fzf-bibtex asks bibtool to extract from your file
+can be seen by running bibtool with this `rsc` file:
+
+```
+preserve.keys = On
+preserve.key.case = On
+print.line.length { 1000 }
+keep.field { author }
+keep.field { title }
+keep.field { year }
+keep.field { journal }
+keep.field { booktitle }
+keep.field { editor }
+keep.field { publisher }
+keep.field { address }
+keep.field { pages }
+keep.field { school }
+keep.field { volume }
+```
+
 # Release notes
 
 - 1.0 (4 November 2018)
