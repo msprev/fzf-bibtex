@@ -38,7 +38,9 @@ brew install bib-tool
 brew install go
 ```
 
-- [fzf.vim](https://github.com/junegunn/fzf.vim) (if you want vim integration)
+If you want vim integration:
+
+- [fzf.vim](https://github.com/junegunn/fzf.vim)
 
 ### Installation
 
@@ -88,7 +90,7 @@ An insert mode mapping, typing '@@' brings up fzf to insert a citation:
 ``` {.vim}
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
-    execute ':normal! a' . r
+    execute ':normal! i' . r
     call feedkeys('a', 'n')
 endfunction
 
