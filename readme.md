@@ -45,9 +45,10 @@ If you want vim integration:
 ### Installation
 
 ``` {.bash}
-git clone https://github.com/msprev/fzf-bibtex
-cd fzf-bibtex
-go install ./...
+go get github.com/msprev/fzf-bibtex
+go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
+go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
+go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
 ```
 
 ### Vim integration
