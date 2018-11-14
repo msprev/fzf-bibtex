@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"encoding/base32"
 	"fmt"
-	"fzf-bibtex/bibtex"
+	"github.com/msprev/fzf-bibtex/bibtex"
 	"os"
 	"path/filepath"
 	"strconv"

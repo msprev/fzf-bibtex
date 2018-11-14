@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"fzf-bibtex/startup"
+	"github.com/msprev/fzf-bibtex/startup"
 	"os"
 	"strings"
 )
