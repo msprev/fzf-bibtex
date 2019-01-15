@@ -12,7 +12,7 @@ func Parse(output *string, bibFile string, formatter func(map[string]string) str
 	bibtexStr := *bibtool(bibFile)   // read data from .bibfile as string
 	bibtexStr = *cleanup(&bibtexStr) // clean up the string from LaTeX crap
 	// now parse that string into fields
-	sl := strings.Split(bibtexStr, "@")[1:]
+	sl := strings.Split(bibtexStr, "\n@")[1:]
 	for _, e := range sl {
 		s := formatter(parseEntry(strings.TrimSpace(e)))
 		doSomething(s)
