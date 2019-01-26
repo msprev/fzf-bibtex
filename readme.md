@@ -60,7 +60,7 @@ let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
 let $FZF_BIBTEX_SOURCES = 'PATH-TO-BIBTEX-FILE'
 
 function! s:bibtex_cite_sink(lines)
-    let r=system("bibby-cite ", a:lines)
+    let r=system("bibtex-cite ", a:lines)
     execute ':normal! i' . r
 endfunction
 
