@@ -2,19 +2,21 @@ package cache
 
 import (
 	"bufio"
-	"encoding/base32"
+	"crypto/sha256"
 	"fmt"
 	"github.com/msprev/fzf-bibtex/bibtex"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
+	"strings"
 	"time"
 )
 
 const debug = false
 
-func IsFresh(cacheDir string, subcache string, bibFile string) bool {
-	cacheFile := cacheName(bibFile)
+func IsFresh(cacheDir string, subcache string, bibFiles []string) bool {
+	cacheFile := cacheName(bibFiles)
 	if debug {
 		fmt.Println(cacheFile)
 	}
@@ -44,50 +46,56 @@ func IsFresh(cacheDir string, subcache string, bibFile string) bool {
 		panic(err)
 	}
 	timestamp, _ := strconv.ParseInt(string(scanner.Text()), 10, 64)
-	// read mod time of bibFile
-	fi, err := os.Stat(bibFile)
-	check(err)
-	timestamp2 := fi.ModTime().UnixNano()
-	if timestamp < timestamp2 {
-		if debug {
-			fmt.Println("cache is out of date " + bibFile)
+
+	for _, bibFile := range bibFiles {
+		fi, err := os.Stat(bibFile)
+		check(err)
+		timestamp2 := fi.ModTime().UnixNano()
+		if timestamp < timestamp2 {
+			if debug {
+				fmt.Println("cache is out of date for: " + bibFile)
+			}
+			return false // cache is out of date
 		}
-		return false // cache is out of date
 	}
 	if debug {
-		fmt.Println("cache is up to date " + bibFile)
+		fmt.Println("cache is up to date for: " + strings.Join(bibFiles, ", "))
 	}
-	return true // cache is up to date
+	return true
 }
 
-func RefreshAndDo(cacheDir string, bibFile string, subcache string, formatter func(map[string]string) string, doSomething func(string)) {
+func RefreshAndDo(cacheDir string, bibFiles []string, subcache string, formatter func(map[string]string) string, doSomething func(string)) {
 	// wait while locked
-	cacheFile := cacheName(bibFile)
+	cacheFile := cacheName(bibFiles)
 	for islocked(cacheDir, cacheFile) {
 		if debug {
 			fmt.Println("waiting...")
 		}
 		time.Sleep(50 * time.Millisecond)
 	}
+
 	lock(cacheDir, cacheFile)
 	defer unlock(cacheDir, cacheFile)
+
 	data := ""
-	bibtex.Parse(&data, bibFile, formatter, doSomething)
-	write(filepath.Join(cacheDir, cacheFile+"."+subcache), &data)
+	bibtex.Parse(&data, bibFiles, formatter, doSomething)
+	write(filepath.Join(cacheDir, cacheFile + "." + subcache), &data)
+
 	// update timestamp
 	timestamp := time.Now().UnixNano()
-	f, err := os.Create(filepath.Join(cacheDir, cacheFile+"."+subcache+".timestamp"))
+	f, err := os.Create(filepath.Join(cacheDir, cacheFile + "." + subcache + ".timestamp"))
 	check(err)
 	defer f.Close()
 	f.WriteString(strconv.FormatInt(timestamp, 10))
 }
 
-func ReadAndDo(cacheDir string, bibFile string, subcache string, formatter func(map[string]string) string, doSomething func(string)) {
-	if !IsFresh(cacheDir, subcache, bibFile) {
-		RefreshAndDo(cacheDir, bibFile, subcache, formatter, doSomething)
+func ReadAndDo(cacheDir string, bibFiles []string, subcache string, formatter func(map[string]string) string, doSomething func(string)) {
+	if !IsFresh(cacheDir, subcache, bibFiles) {
+		RefreshAndDo(cacheDir, bibFiles, subcache, formatter, doSomething)
 		return
 	}
-	cacheFile := cacheName(bibFile)
+	cacheFile := cacheName(bibFiles)
+
 	// wait while locked
 	for islocked(cacheDir, cacheFile) {
 		if debug {
@@ -97,13 +105,16 @@ func ReadAndDo(cacheDir string, bibFile string, subcache string, formatter func(
 	}
 	lock(cacheDir, cacheFile)
 	defer unlock(cacheDir, cacheFile)
-	toRead := filepath.Join(cacheDir, cacheFile+"."+subcache)
+
+	// Read Cache
+	toRead := filepath.Join(cacheDir, cacheFile + "." + subcache)
 	if debug {
 		fmt.Println("opening: " + toRead)
 	}
 	file, err := os.Open(toRead)
 	check(err)
 	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		doSomething(scanner.Text())
@@ -113,9 +124,14 @@ func ReadAndDo(cacheDir string, bibFile string, subcache string, formatter func(
 	}
 }
 
-func cacheName(bibFile string) string {
-	abspath, _ := filepath.Abs(bibFile)
-	return base32.StdEncoding.EncodeToString([]byte(abspath))
+func cacheName(bibFiles []string) string {
+	sort.Strings(bibFiles)
+	fullCachePath := ""
+	for _, bibFile := range bibFiles {
+		absPath, _ := filepath.Abs(bibFile)
+		fullCachePath += "-" + absPath
+	}
+	return fmt.Sprintf("%x", sha256.Sum256([]byte(fullCachePath)))
 }
 
 func lock(cacheDir string, cacheFile string) {
