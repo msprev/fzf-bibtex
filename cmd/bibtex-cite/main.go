@@ -9,7 +9,7 @@ import (
 )
 
 const usage string = `bibtex-cite [-mode=pandoc|latex]
-	Pretty print citations in LaTeX or pandoc @format for selected entries passed over stdin.
+	Pretty print citations in LaTeX \cite command or pandoc @ format for selected entries passed over stdin.
 `
 
 const debug = false

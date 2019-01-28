@@ -10,7 +10,7 @@ To select items using fzf from a `.bib` file (as in image above):
 bibtex-ls references.bib | fzf --multi --ansi
 ```
 
-To select, then cite items (using pandoc '@' citation format) from a `.bib` file:
+To select, then cite items (using the pandoc '@' format or LaTeX \cite command) from a `.bib` file:
 
 ``` {.bash}
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-cite
@@ -122,10 +122,10 @@ Parsing BibTeX databases is computationally intensive, so the command caches the
     If no cache directory is specified, the operating system's directory for temporary files is used.
 
 ``` {.bash}
-bibtex-cite
+bibtex-cite [-mode=pandoc|latex]
 ```
 
-Pretty print citations (in pandoc '@' format) for selected `.bib` entries passed over stdin.
+Pretty print citations in LaTeX \cite command or pandoc @ format for selected entries passed over stdin.
 
 ``` {.bash}
 bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
