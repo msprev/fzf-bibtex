@@ -28,16 +28,14 @@ func main() {
 	// create a key printer function for read keys
 	printIfKeyMatches := makePrinter(keys)
 	// pass it to cache-backed markdown outputing function
-	for _, bibFile := range bibFiles {
-		markdown(cacheDir, bibFile, printIfKeyMatches)
-	}
+	markdown(cacheDir, bibFiles, printIfKeyMatches)
 }
 
-func markdown(cacheDir string, bibFile string, printIfKeyMatches func(string)) {
+func markdown(cacheDir string, bibFiles []string, printIfKeyMatches func(string)) {
 	if debug {
-		fmt.Println("markdown " + bibFile)
+		fmt.Println("markdown " + strings.Join(bibFiles, " "))
 	}
-	cache.ReadAndDo(cacheDir, bibFile, "markdown", format.EntryToMarkdown, printIfKeyMatches)
+	cache.ReadAndDo(cacheDir, bibFiles, "markdown", format.EntryToMarkdown, printIfKeyMatches)
 }
 
 func makePrinter(keys []string) func(string) {
