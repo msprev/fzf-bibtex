@@ -154,6 +154,7 @@ can be seen by running bibtool with this `rsc` file:
 preserve.keys = On
 preserve.key.case = On
 print.line.length { 1000 }
+keep.field { date }
 keep.field { author }
 keep.field { title }
 keep.field { year }
@@ -165,6 +166,8 @@ keep.field { address }
 keep.field { pages }
 keep.field { school }
 keep.field { volume }
+rename.field { year = date if year = ".+" }
+add.field { year = "%-4.1d(date)" }
 ```
 
 ## Release notes
