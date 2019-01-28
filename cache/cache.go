@@ -7,10 +7,12 @@ import (
 	"github.com/msprev/fzf-bibtex/bibtex"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
 )
+
 const debug = false
 
 func IsFresh(cacheDir string, subcache string, bibFiles []string) bool {
@@ -123,6 +125,7 @@ func ReadAndDo(cacheDir string, bibFiles []string, subcache string, formatter fu
 }
 
 func cacheName(bibFiles []string) string {
+	sort.Strings(bibFiles)
 	fullCachePath := ""
 	for _, bibFile := range bibFiles {
 		absPath, _ := filepath.Abs(bibFile)
