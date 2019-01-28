@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"github.com/msprev/fzf-bibtex/cache"
 	"github.com/msprev/fzf-bibtex/format"
 	"github.com/msprev/fzf-bibtex/startup"
@@ -19,16 +20,14 @@ func main() {
 		fmt.Println("cachedir: ", cacheDir)
 		fmt.Println("bib files: ", bibFiles)
 	}
-	for _, bibFile := range bibFiles {
-		ls(cacheDir, bibFile)
-	}
+	ls(cacheDir, bibFiles)
 }
 
-func ls(cacheDir string, bibFile string) {
+func ls(cacheDir string, bibFiles []string) {
 	if debug {
-		fmt.Println("ls " + bibFile)
+		fmt.Println("ls " + strings.Join(bibFiles, " "))
 	}
-	cache.ReadAndDo(cacheDir, bibFile, "fzf", format.EntryToFZF, printLine)
+	cache.ReadAndDo(cacheDir, bibFiles, "fzf", format.EntryToFZF, printLine)
 }
 
 func printLine(s string) {

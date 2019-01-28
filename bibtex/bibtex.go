@@ -8,10 +8,9 @@ import (
 	"strings"
 )
 
-func Parse(output *string, bibFile string, formatter func(map[string]string) string, doSomething func(string)) {
-	bibtexStr := *bibtool(bibFile)   // read data from .bibfile as string
-	bibtexStr = *cleanup(&bibtexStr) // clean up the string from LaTeX crap
-	// now parse that string into fields
+func Parse(output *string, bibFiles []string, formatter func(map[string]string) string, doSomething func(string)) {
+	bibtexStr := *bibtool(bibFiles)   // read data from .bibfile as string
+	bibtexStr = *cleanup(&bibtexStr)  // clean up the string from LaTeX crap
 	sl := strings.Split(bibtexStr, "\n@")[1:]
 	for _, e := range sl {
 		s := formatter(parseEntry(strings.TrimSpace(e)))
@@ -51,11 +50,13 @@ func abbrevAuthors(authors string) string {
 		return sl[0] + " & " + sl[1]
 	}
 	last := len(sl) - 1
-	return strings.Join(sl[0:last-1], ", ") + " & " + sl[last]
+	return strings.Join(sl[0:last-1], "; ") + " & " + sl[last]
 }
 
-func bibtool(bibFile string) *string {
-	const rsc string = `preserve.keys = On
+func bibtool(bibFiles []string) *string {
+	const rsc string = `expand.macros = On
+expand.crossref = On
+preserve.keys = On
 preserve.key.case = On
 print.line.length { 1000 }
 keep.field { author }
@@ -70,24 +71,26 @@ keep.field { pages }
 keep.field { school }
 keep.field { volume }
 `
-	// create rsc file
-	tmpfile, err := ioutil.TempFile(os.TempDir(), "fzf-bibtex.*.rsc")
+	rscFile, err := ioutil.TempFile(os.TempDir(), "fzf-bibtex.*.rsc")
 	check(err)
-	defer os.Remove(tmpfile.Name()) // clean up
-	// fmt.Println(tmpfile.Name())
-	content := []byte(rsc)
-	_, err = tmpfile.Write(content)
+	defer os.Remove(rscFile.Name())
+
+	_, err = rscFile.Write([]byte(rsc))
 	check(err)
-	err = tmpfile.Close()
+
+	err = rscFile.Close()
 	check(err)
-	// run bibtool
-	extCmd := exec.Command("bibtool", "-r", tmpfile.Name(), bibFile)
+
+	args := append([]string{"-r", rscFile.Name()}, bibFiles...)
+	extCmd := exec.Command("bibtool", args...)
 	extOut, _ := extCmd.StdoutPipe()
 	err = extCmd.Start()
 	check(err) // should handle this one better!
+
 	extBytes, _ := ioutil.ReadAll(extOut)
 	extCmd.Wait()
 	bibtex := string(extBytes)
+
 	return &bibtex
 }
 
