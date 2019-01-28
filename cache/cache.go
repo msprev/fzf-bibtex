@@ -2,7 +2,7 @@ package cache
 
 import (
 	"bufio"
-	"encoding/base32"
+	"crypto/sha256"
 	"fmt"
 	"github.com/msprev/fzf-bibtex/bibtex"
 	"os"
@@ -128,7 +128,7 @@ func cacheName(bibFiles []string) string {
 		absPath, _ := filepath.Abs(bibFile)
 		fullCachePath += "-" + absPath
 	}
-	return base32.StdEncoding.EncodeToString([]byte(fullCachePath))
+	return fmt.Sprintf("%x", sha256.Sum256([]byte(fullCachePath)))
 }
 
 func lock(cacheDir string, cacheFile string) {
