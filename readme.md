@@ -2,7 +2,11 @@
 
 # fzf-bibtex
 
-A BibTeX source for fzf. Example use:
+A BibTeX source for fzf.
+
+- Blazingly fast, even with large BibTeX files
+- Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
+- Supports multiple BibTeX files and cross references
 
 To select items using fzf from a `.bib` file (as in image above):
 
@@ -151,6 +155,8 @@ The BibTeX fields that fzf-bibtex asks bibtool to extract from your file
 can be seen by running bibtool with this `rsc` file:
 
 ```
+expand.macros = On
+expand.crossref = On
 preserve.keys = On
 preserve.key.case = On
 print.line.length { 1000 }
