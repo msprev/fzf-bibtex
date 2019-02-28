@@ -99,11 +99,11 @@ func EntryToFZF(entry map[string]string) string {
 	}
 	// add type and bibtex key
 	s += " "
-	s += "\033[31m"
+	s += "\033[32m"
 	s += "[" + entry["type"] + "]"
 	s += "\033[0m"
 	s += " "
-	s += "\033[34m"
+	s += "\033[35m"
 	s += "@" + entry["key"]
 	s += "\033[0m"
 	return s
