@@ -9,8 +9,8 @@ import (
 )
 
 func Parse(output *string, bibFiles []string, formatter func(map[string]string) string, doSomething func(string)) {
-	bibtexStr := *bibtool(bibFiles)   // read data from .bibfile as string
-	bibtexStr = *cleanup(&bibtexStr)  // clean up the string from LaTeX crap
+	bibtexStr := *bibtool(bibFiles)  // read data from .bibfile as string
+	bibtexStr = *cleanup(&bibtexStr) // clean up the string from LaTeX crap
 	sl := strings.Split(bibtexStr, "\n@")[1:]
 	for _, e := range sl {
 		s := formatter(parseEntry(strings.TrimSpace(e)))
@@ -50,7 +50,7 @@ func abbrevAuthors(authors string) string {
 		return sl[0] + " & " + sl[1]
 	}
 	last := len(sl) - 1
-	return strings.Join(sl[0:last-1], "; ") + " & " + sl[last]
+	return strings.Join(sl[0:last-1], ", ") + " & " + sl[last]
 }
 
 func bibtool(bibFiles []string) *string {
