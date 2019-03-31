@@ -57,7 +57,7 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
 
 ### Vim integration
 
-Add this to your `vimrc` file:
+Assuming the executables installed above are available to Vim in your file path, add this to your `vimrc` file:
 
 ``` {.vim}
 let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
