@@ -58,7 +58,7 @@ func bibtool(bibFiles []string) *string {
 expand.crossref = On
 preserve.keys = On
 preserve.key.case = On
-print.line.length { 1000 }
+print.line.length { 10000 }
 keep.field { date }
 keep.field { author }
 keep.field { title }
