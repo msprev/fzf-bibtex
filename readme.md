@@ -6,7 +6,8 @@ A BibTeX source for fzf.
 
 - Blazingly fast, even with large BibTeX files
 - Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
-- Supports multiple BibTeX files and cross references
+- Supports multiple BibTeX files
+- Supports cross references (thanks to [\@cao](https://github.com/cao))
 
 To select items using fzf from a `.bib` file (as in image above):
 
@@ -49,7 +50,7 @@ If you want vim integration:
 ### Installation
 
 ``` {.bash}
-go get github.com/msprev/fzf-bibtex
+go get github.com/msprev/fzf-bibtex/cmd/bibtex-ls
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
