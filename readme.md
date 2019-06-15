@@ -5,9 +5,13 @@
 A BibTeX source for fzf.
 
 - Blazingly fast, even with large BibTeX files
+- Caches results (hence the speed)
+- Uses a well-understood framework to parse BibTeX ([bibtool](https://ctan.org/pkg/bibtool))
 - Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
 - Supports multiple BibTeX files
 - Supports cross references (thanks to [\@cao](https://github.com/cao))
+
+## Example use
 
 To select items using fzf from a `.bib` file (as in image above):
 
@@ -15,13 +19,13 @@ To select items using fzf from a `.bib` file (as in image above):
 bibtex-ls references.bib | fzf --multi --ansi
 ```
 
-To select, then cite items (using the pandoc '@' format or LaTeX \cite command) from a `.bib` file:
+To cite items (using the pandoc '@' format or LaTeX \cite command) from a `.bib` file:
 
 ``` {.bash}
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-cite
 ```
 
-To select, and then pretty print items (in markdown) from a `.bib` file:
+To pretty print items (in markdown) from a `.bib` file:
 
 ``` {.bash}
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-markdown references.bib
