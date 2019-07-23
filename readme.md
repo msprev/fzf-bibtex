@@ -5,11 +5,12 @@
 A BibTeX source for fzf.
 
 - Blazingly fast, even with large BibTeX files
-- Caches results (hence the speed)
+- Caches results intelligently (hence the speed)
 - Uses a well-understood framework to parse BibTeX ([bibtool](https://ctan.org/pkg/bibtool))
 - Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
 - Supports multiple BibTeX files
 - Supports cross references (thanks to [\@cao](https://github.com/cao))
+- Supports BibLaTeX (thanks to [\@ashwinvis](https://github.com/ashwinvis))
 
 ## Example use
 
@@ -179,6 +180,7 @@ keep.field { school }
 keep.field { volume }
 rename.field { year = date if year = ".+" }
 add.field { year = "%-4.1d(date)" }
+resource {biblatex}
 ```
 
 ## Release notes
