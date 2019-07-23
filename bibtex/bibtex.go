@@ -73,6 +73,7 @@ keep.field { school }
 keep.field { volume }
 rename.field { year = date if year = ".+" }
 add.field { year = "%-4.1d(date)" }
+resource {biblatex}
 `
 	rscFile, err := ioutil.TempFile(os.TempDir(), "fzf-bibtex.*.rsc")
 	check(err)
