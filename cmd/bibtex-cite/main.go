@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-const usage string = `bibtex-cite [-mode=pandoc|latex]
-	Pretty print citations in LaTeX \cite command or pandoc @ format for selected entries passed over stdin.
+const usage string = `bibtex-cite [-mode=pandoc|latex|pandocnoauthor]
+	Pretty print citations in LaTeX \cite command, pandoc @ or pandoc -@ format for selected entries passed over stdin.
 `
 
 const debug = false
@@ -23,6 +23,11 @@ func main() {
 	}
 
 	if citeMode == "pandoc" {
+		fmt.Print(strings.Join(keys, ", "))
+	} else if citeMode == "pandocnoauthor" {
+		for k, v := range keys {
+			keys[k] = "-@" + v[1:]
+		}
 		fmt.Print(strings.Join(keys, ", "))
 	} else if citeMode == "latex" {
 		for k, v := range keys {
@@ -45,7 +50,7 @@ func readArgs(usage string) (string) {
 	}
 	flag.Parse()
 
-	if *citeModeFlag == "pandoc" || *citeModeFlag == "latex" {
+	if *citeModeFlag == "pandoc" || *citeModeFlag == "latex" || *citeModeFlag == "pandocnoauthor" {
 		citeMode = *citeModeFlag
 	} else {
 		panic("invalid cite mode: " + *citeModeFlag)
