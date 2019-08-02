@@ -157,6 +157,10 @@ Parsing BibTeX databases is computationally intensive, so the command caches the
     The cache is updated if the underlying BibTeX file has been changed.
     If no cache directory is specified, the operating system's directory for temporary files is used.
 
+(NB. If you are tinkering with fzf-bibtex's codebase, beware of outdated caches.
+Cache is *only* updated if the underlying BibTeX file has been changed.
+If you change the fzf-bibtex codebase, make sure to flush the cache by `touch`ing the BibTeX files, or deleting the cache, before you run new code on them).
+
 ``` {.bash}
 bibtex-cite [-mode=pandoc|latex]
 ```
