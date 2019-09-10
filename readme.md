@@ -79,13 +79,13 @@ function! s:bibtex_markdown_sink(lines)
     execute ':normal! i' . r
 endfunction
 
-nnoremap <leader>c :call fzf#run({
+nnoremap <silent> <leader>c :call fzf#run({
                         \ 'source': 'bibtex-ls',
                         \ 'sink*': function('<sid>bibtex_cite_sink'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 
-nnoremap <leader>m :call fzf#run({
+nnoremap <silent> <leader>m :call fzf#run({
                         \ 'source': 'bibtex-ls',
                         \ 'sink*': function('<sid>bibtex_markdown_sink'),
                         \ 'up': '40%',
