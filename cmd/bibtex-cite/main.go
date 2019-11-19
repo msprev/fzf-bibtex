@@ -23,7 +23,7 @@ func main() {
 	}
 
 	if citeMode == "pandoc" {
-		fmt.Print(strings.Join(keys, ", "))
+		fmt.Print(strings.Join(keys, "; "))
 	} else if citeMode == "latex" {
 		for k, v := range keys {
 			keys[k] = v[1:]
