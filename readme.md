@@ -129,7 +129,7 @@ endfunction
 
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
+    execute ':normal! a' . r
     call feedkeys('a', 'n')
 endfunction
 
