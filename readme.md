@@ -71,12 +71,12 @@ let $FZF_BIBTEX_SOURCES = 'PATH-TO-BIBTEX-FILE'
 
 function! s:bibtex_cite_sink(lines)
     let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
+    execute ':normal! a' . r
 endfunction
 
 function! s:bibtex_markdown_sink(lines)
     let r=system("bibtex-markdown ", a:lines)
-    execute ':normal! i' . r
+    execute ':normal! a' . r
 endfunction
 
 nnoremap <silent> <leader>c :call fzf#run({
@@ -98,10 +98,11 @@ nnoremap <silent> <leader>m :call fzf#run({
 
 An insert mode mapping, typing '@@' brings up fzf to insert a citation:
 
+
 ``` {.vim}
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
+    execute ':normal! a' . r
     call feedkeys('a', 'n')
 endfunction
 
