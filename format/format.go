@@ -5,6 +5,9 @@ import (
 )
 
 func EntryToFZF(entry map[string]string) string {
+    if entry["year"] == "" {
+        entry["year"] = "no year"
+    }
 	s := ""
 	switch entry["type"] {
 	case "article":
@@ -17,10 +20,14 @@ func EntryToFZF(entry map[string]string) string {
 		s += "\033[3m"
 		s += entry["journal"]
 		s += "\033[0m"
-		s += " "
-		s += entry["volume"]
-		s += ", "
-		s += entry["pages"]
+        if entry["volume"] != "" {
+            s += " "
+            s += entry["volume"]
+        }
+        if entry["pages"] != "" {
+            s += ", "
+            s += entry["pages"]
+        }
 	case "book":
 		if _, ok := entry["editor"]; ok {
 			s += entry["editor"]
@@ -38,10 +45,12 @@ func EntryToFZF(entry map[string]string) string {
 		s += "\033[3m"
 		s += entry["title"]
 		s += "\033[0m"
-		s += ", "
-		s += entry["address"]
-		s += ": "
-		s += entry["publisher"]
+        if entry["address"] != ""  {
+            s += ", "
+            s += entry["address"]
+            s += ": "
+            s += entry["publisher"]
+        }
 	case "incollection", "inproceedings", "inbook":
 		s += entry["author"]
 		s += " "
@@ -61,12 +70,16 @@ func EntryToFZF(entry map[string]string) string {
 		s += "\033[3m"
 		s += entry["booktitle"]
 		s += "\033[0m"
-		s += ", "
-		s += entry["address"]
-		s += ": "
-		s += entry["publisher"]
-		s += ", pp. "
-		s += entry["pages"]
+        if entry["address"] != ""  {
+            s += ", "
+            s += entry["address"]
+            s += ": "
+            s += entry["publisher"]
+        }
+        if entry["pages"] != "" {
+            s += ", pp. "
+            s += entry["pages"]
+        }
 	case "unpublished":
 		s += entry["author"]
 		s += " "
@@ -110,6 +123,9 @@ func EntryToFZF(entry map[string]string) string {
 }
 
 func EntryToMarkdown(entry map[string]string) string {
+    if entry["year"] == "" {
+        entry["year"] = "no year"
+    }
 	s := ""
 	s += "@" + entry["key"] + " "
 	switch entry["type"] {
@@ -123,10 +139,14 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "*"
 		s += entry["journal"]
 		s += "*"
-		s += " "
-		s += entry["volume"]
-		s += ", "
-		s += entry["pages"]
+        if entry["volume"] != "" {
+            s += " "
+            s += entry["volume"]
+        }
+        if entry["pages"] != "" {
+            s += ", "
+            s += entry["pages"]
+        }
 	case "book":
 		if _, ok := entry["editor"]; ok {
 			s += entry["editor"]
@@ -144,10 +164,12 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "*"
 		s += entry["title"]
 		s += "*"
-		s += ", "
-		s += entry["address"]
-		s += ": "
-		s += entry["publisher"]
+        if entry["address"] != ""  {
+            s += ", "
+            s += entry["address"]
+            s += ": "
+            s += entry["publisher"]
+        }
 	case "incollection", "inproceedings", "inbook":
 		s += entry["author"]
 		s += " "
@@ -167,12 +189,16 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "*"
 		s += entry["booktitle"]
 		s += "*"
-		s += ", "
-		s += entry["address"]
-		s += ": "
-		s += entry["publisher"]
-		s += ", pp. "
-		s += entry["pages"]
+        if entry["address"] != ""  {
+            s += ", "
+            s += entry["address"]
+            s += ": "
+            s += entry["publisher"]
+        }
+        if entry["pages"] != "" {
+            s += ", pp. "
+            s += entry["pages"]
+        }
 	case "unpublished":
 		s += entry["author"]
 		s += " "
