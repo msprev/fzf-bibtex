@@ -50,7 +50,7 @@ func abbrevAuthors(authors string) string {
 		return sl[0] + " & " + sl[1]
 	}
 	last := len(sl) - 1
-	return strings.Join(sl[0:last-1], ", ") + " & " + sl[last]
+	return strings.Join(sl[0:last], ", ") + " & " + sl[last]
 }
 
 func bibtool(bibFiles []string) *string {
