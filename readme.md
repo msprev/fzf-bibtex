@@ -143,6 +143,8 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
 
 ## Command line use
 
+### bibtex-ls
+
 ``` {.bash}
 bibtex-ls [-cache=...] [file1.bib file2.bib ...]
 ```
@@ -163,6 +165,8 @@ Parsing BibTeX databases is computationally intensive, so the command caches the
 Cache is *only* updated if the underlying BibTeX file has been changed.
 If you change the fzf-bibtex codebase, make sure to flush the cache by `touch`ing the BibTeX files, or deleting the cache, before you run new code on them).
 
+### bibtex-cite
+
 ``` {.bash}
 bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
 ```
@@ -173,13 +177,14 @@ Citation format may be customised with `-prefix`, `-postfix`, and `-separator` o
 
 Default values (suitable for pandoc citations):
 
-- `-prefix="@"` `-postfix=""` `-separator="; "`
+- `-prefix="@"` `-postfix=""` `-separator="; @"`
 
 `-mode` options:
 
-- `-mode=pandoc` => `-prefix="@"      -postfix=""  -separator="; "`
+- `-mode=pandoc` => `-prefix="@"      -postfix=""  -separator="; @"`
 - `-mode=latex`  => `-prefix="\cite{" -postfix="}" -separator=", "`
 
+### bibtex-markdown
 
 ``` {.bash}
 bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
