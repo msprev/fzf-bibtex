@@ -10,8 +10,8 @@ A BibTeX source for fzf.
 - Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
 - Supports multiple BibTeX files
 - Supports cross references (thanks to [\@cao](https://github.com/cao))
-- Basic BibLaTeX support (thanks to [\@ashwinvis](https://github.com/ashwinvis))
 - Supports multiple citation formats
+- Basic BibLaTeX support (thanks to [\@ashwinvis](https://github.com/ashwinvis))
 
 ## Example use
 
