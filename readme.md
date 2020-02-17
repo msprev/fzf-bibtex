@@ -11,6 +11,7 @@ A BibTeX source for fzf.
 - Supports multiple BibTeX files
 - Supports cross references (thanks to [\@cao](https://github.com/cao))
 - Basic BibLaTeX support (thanks to [\@ashwinvis](https://github.com/ashwinvis))
+- Supports multiple citation formats
 
 ## Example use
 
@@ -163,10 +164,22 @@ Cache is *only* updated if the underlying BibTeX file has been changed.
 If you change the fzf-bibtex codebase, make sure to flush the cache by `touch`ing the BibTeX files, or deleting the cache, before you run new code on them).
 
 ``` {.bash}
-bibtex-cite [-mode=pandoc|latex]
+bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
 ```
 
-Pretty print citations in LaTeX \cite command or pandoc @ format for selected entries passed over stdin.
+Pretty print citations for selected entries passed over stdin.
+
+Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options. `-mode` option provides presets for pandoc and LaTeX citations.
+
+Default values (suitable for pandoc citations):
+
+- `-prefix="@"` `-postfix=""` `-separator="; "`
+
+`-mode` options:
+
+- `-mode=pandoc` => `-prefix="@"      -postfix=""  -separator="; "`
+- `-mode=latex`  => `-prefix="\cite{" -postfix="}" -separator=", "`
+
 
 ``` {.bash}
 bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
@@ -271,6 +284,8 @@ new.entry.type{XData}
 
 ## Release notes
 
+- 1.1 (17 February 2020)
+    - support arbitrary citation formats
 - 1.0 (4 November 2018)
     - first version
 
