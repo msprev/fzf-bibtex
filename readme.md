@@ -94,16 +94,17 @@ bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
 
 Pretty print citations for selected entries passed over stdin.
 
-Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options. Legacy `-mode` option provides presets for pandoc and LaTeX style citations.
+Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options.
 
 Default values (suitable for pandoc '@' format):
 
 - `-prefix="@"` `-postfix=""` `-separator="; @"`
 
-`-mode` options:
+Legacy `-mode` option provides presets for pandoc and LaTeX style
+citations.  `-mode` options:
 
-- `-mode=pandoc` => `-prefix="@"      -postfix=""  -separator="; @"`
-- `-mode=latex`  => `-prefix="\cite{" -postfix="}" -separator=", "`
+- `-mode=pandoc` = `-prefix="@"      -postfix=""  -separator="; @"`
+- `-mode=latex`  = `-prefix="\cite{" -postfix="}" -separator=", "`
 
 ### bibtex-markdown
 
