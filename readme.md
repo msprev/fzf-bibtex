@@ -21,7 +21,7 @@ To select items using fzf from a `.bib` file (as in image above):
 bibtex-ls references.bib | fzf --multi --ansi
 ```
 
-To cite items (using the pandoc '@' format or LaTeX \cite command) from a `.bib` file:
+To cite items (using the pandoc '@' format) from a `.bib` file:
 
 ``` {.bash}
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-cite
@@ -94,9 +94,9 @@ bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
 
 Pretty print citations for selected entries passed over stdin.
 
-Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options. `-mode` option provides presets for pandoc and LaTeX citations.
+Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options. Legacy `-mode` option provides presets for pandoc and LaTeX style citations.
 
-Default values (suitable for pandoc citations):
+Default values (suitable for pandoc '@' format):
 
 - `-prefix="@"` `-postfix=""` `-separator="; @"`
 
