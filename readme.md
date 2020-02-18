@@ -62,7 +62,60 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
 ```
 
-### Vim integration
+## Command line use
+
+### bibtex-ls
+
+``` {.bash}
+bibtex-ls [-cache=...] [file1.bib file2.bib ...]
+```
+
+Lists to stdout the content of .bib files, one record per line.
+
+If the following environment variables are set, then these command line arguments can be omitted.
+
+- `FZF_BIBTEX_CACHEDIR`: path to a cache directory
+- `FZF_BIBTEX_SOURCES`: path to bibtex file; multiple items separated by a '`:`'
+
+The cache directory should be a suitable directory for bibtex-ls temporary files.
+Parsing BibTeX databases is computationally intensive, so the command caches the results.
+    The cache is updated if the underlying BibTeX file has been changed.
+    If no cache directory is specified, the operating system's directory for temporary files is used.
+
+(NB. If you are tinkering with fzf-bibtex's codebase, beware of outdated caches.
+Cache is *only* updated if the underlying BibTeX file has been changed.
+If you change the fzf-bibtex codebase, make sure to flush the cache by `touch`ing the BibTeX files, or deleting the cache, before you run new code on them).
+
+### bibtex-cite
+
+``` {.bash}
+bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
+```
+
+Pretty print citations for selected entries passed over stdin.
+
+Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options. `-mode` option provides presets for pandoc and LaTeX citations.
+
+Default values (suitable for pandoc citations):
+
+- `-prefix="@"` `-postfix=""` `-separator="; @"`
+
+`-mode` options:
+
+- `-mode=pandoc` => `-prefix="@"      -postfix=""  -separator="; @"`
+- `-mode=latex`  => `-prefix="\cite{" -postfix="}" -separator=", "`
+
+### bibtex-markdown
+
+``` {.bash}
+bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
+```
+
+Pretty print items (in markdown) for selected `.bib` entries passed over stdin.
+
+Cache directory may be set using the same environment variable as bibtex-ls.
+
+## Vim integration
 
 Assuming the executables installed above are available to Vim in your file path, add this to your `vimrc` file:
 
@@ -141,58 +194,6 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 ```
 
-## Command line use
-
-### bibtex-ls
-
-``` {.bash}
-bibtex-ls [-cache=...] [file1.bib file2.bib ...]
-```
-
-Lists to stdout the content of .bib files, one record per line.
-
-If the following environment variables are set, then these command line arguments can be omitted.
-
-- `FZF_BIBTEX_CACHEDIR`: path to a cache directory
-- `FZF_BIBTEX_SOURCES`: path to bibtex file; multiple items separated by a '`:`'
-
-The cache directory should be a suitable directory for bibtex-ls temporary files.
-Parsing BibTeX databases is computationally intensive, so the command caches the results.
-    The cache is updated if the underlying BibTeX file has been changed.
-    If no cache directory is specified, the operating system's directory for temporary files is used.
-
-(NB. If you are tinkering with fzf-bibtex's codebase, beware of outdated caches.
-Cache is *only* updated if the underlying BibTeX file has been changed.
-If you change the fzf-bibtex codebase, make sure to flush the cache by `touch`ing the BibTeX files, or deleting the cache, before you run new code on them).
-
-### bibtex-cite
-
-``` {.bash}
-bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
-```
-
-Pretty print citations for selected entries passed over stdin.
-
-Citation format may be customised with `-prefix`, `-postfix`, and `-separator` options. `-mode` option provides presets for pandoc and LaTeX citations.
-
-Default values (suitable for pandoc citations):
-
-- `-prefix="@"` `-postfix=""` `-separator="; @"`
-
-`-mode` options:
-
-- `-mode=pandoc` => `-prefix="@"      -postfix=""  -separator="; @"`
-- `-mode=latex`  => `-prefix="\cite{" -postfix="}" -separator=", "`
-
-### bibtex-markdown
-
-``` {.bash}
-bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
-```
-
-Pretty print items (in markdown) for selected `.bib` entries passed over stdin.
-
-Cache directory may be set using the same environment variable as bibtex-ls.
 
 ## Errors?
 
