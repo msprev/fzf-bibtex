@@ -7,7 +7,6 @@ import (
 	"github.com/msprev/fzf-bibtex/bibtex"
 	"os"
 	"path/filepath"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -125,7 +124,6 @@ func ReadAndDo(cacheDir string, bibFiles []string, subcache string, formatter fu
 }
 
 func cacheName(bibFiles []string) string {
-	sort.Strings(bibFiles)
 	fullCachePath := ""
 	for _, bibFile := range bibFiles {
 		absPath, _ := filepath.Abs(bibFile)
