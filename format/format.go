@@ -20,8 +20,7 @@ func EntryToFZF(entry map[string]string) string {
 		s += "\033[3m"
 	if entry["journal"] != "" {
 	    s += entry["journal"]
-	}
-	if entry["journaltitle"] != "" {
+	} else if entry["journaltitle"] != "" {
 	    s += entry["journaltitle"]
 	}
 		s += "\033[0m"
@@ -55,8 +54,7 @@ func EntryToFZF(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
-	if entry["location"] != ""  {
+        } else if entry["location"] != ""  {
 	    s += ", "
 	    s += entry["location"]
 	    s += ": "
@@ -86,8 +84,7 @@ func EntryToFZF(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
-	if entry["location"] != ""  {
+        } else if entry["location"] != ""  {
 	    s += ", "
 	    s += entry["location"]
 	    s += ": "
@@ -163,8 +160,7 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "*"
 	if entry["journal"] != "" {
 	    s += entry["journal"]
-	}
-	if entry["journaltitle"] != "" {
+	} else if entry["journaltitle"] != "" {
 	    s += entry["journaltitle"]
 	}
 		s += "*"
@@ -198,8 +194,7 @@ func EntryToMarkdown(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
-	if entry["location"] != ""  {
+        } else if entry["location"] != ""  {
 	    s += ", "
 	    s += entry["location"]
 	    s += ": "
@@ -229,8 +224,7 @@ func EntryToMarkdown(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
-	if entry["location"] != ""  {
+        } else if entry["location"] != ""  {
 	    s += ", "
 	    s += entry["location"]
 	    s += ": "
