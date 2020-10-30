@@ -64,13 +64,16 @@ keep.field { author }
 keep.field { title }
 keep.field { year }
 keep.field { journal }
+keep.field { journaltitle }
 keep.field { booktitle }
 keep.field { editor }
 keep.field { publisher }
 keep.field { address }
+keep.field { location }
 keep.field { pages }
 keep.field { school }
 keep.field { volume }
+keep.field { url }
 rename.field { year = date if year = ".+" }
 add.field { year = "%-4.1d(date)" }
 new.entry.type{Article}
