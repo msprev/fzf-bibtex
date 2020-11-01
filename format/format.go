@@ -18,7 +18,11 @@ func EntryToFZF(entry map[string]string) string {
 		s += "'" + entry["title"] + "'"
 		s += ", "
 		s += "\033[3m"
-		s += entry["journal"]
+	if entry["journal"] != "" {
+	    s += entry["journal"]
+	} else if entry["journaltitle"] != "" {
+	    s += entry["journaltitle"]
+	}
 		s += "\033[0m"
         if entry["volume"] != "" {
             s += " "
@@ -50,7 +54,12 @@ func EntryToFZF(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
+        } else if entry["location"] != ""  {
+	    s += ", "
+	    s += entry["location"]
+	    s += ": "
+	    s += entry["publisher"]
+	}
 	case "incollection", "inproceedings", "inbook":
 		s += entry["author"]
 		s += " "
@@ -75,7 +84,12 @@ func EntryToFZF(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
+        } else if entry["location"] != ""  {
+	    s += ", "
+	    s += entry["location"]
+	    s += ": "
+	    s += entry["publisher"]
+	}
         if entry["pages"] != "" {
             s += ", pp. "
             s += entry["pages"]
@@ -94,6 +108,13 @@ func EntryToFZF(entry map[string]string) string {
 		s += " "
 		s += "'" + entry["title"] + "'"
 		s += ", " + entry["school"]
+	case "online":
+		s += entry["author"]
+		s += " "
+		s += "(" + entry["year"] + ")"
+		s += " "
+		s += "'" + entry["title"] + "'"
+		s += ", " + entry["url"]
 	default:
 		if _, ok := entry["editor"]; ok {
 			s += entry["editor"]
@@ -137,7 +158,11 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "'" + entry["title"] + "'"
 		s += ", "
 		s += "*"
-		s += entry["journal"]
+	if entry["journal"] != "" {
+	    s += entry["journal"]
+	} else if entry["journaltitle"] != "" {
+	    s += entry["journaltitle"]
+	}
 		s += "*"
         if entry["volume"] != "" {
             s += " "
@@ -169,7 +194,12 @@ func EntryToMarkdown(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
+        } else if entry["location"] != ""  {
+	    s += ", "
+	    s += entry["location"]
+	    s += ": "
+	    s += entry["publisher"]
+	}
 	case "incollection", "inproceedings", "inbook":
 		s += entry["author"]
 		s += " "
@@ -194,7 +224,12 @@ func EntryToMarkdown(entry map[string]string) string {
             s += entry["address"]
             s += ": "
             s += entry["publisher"]
-        }
+        } else if entry["location"] != ""  {
+	    s += ", "
+	    s += entry["location"]
+	    s += ": "
+	    s += entry["publisher"]
+	}
         if entry["pages"] != "" {
             s += ", pp. "
             s += entry["pages"]
@@ -213,6 +248,13 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += " "
 		s += "'" + entry["title"] + "'"
 		s += ", " + entry["school"]
+	case "online":
+		s += entry["author"]
+		s += " "
+		s += "(" + entry["year"] + ")"
+		s += " "
+		s += "'" + entry["title"] + "'"
+		s += ", " + entry["url"]
 	default:
 		if _, ok := entry["editor"]; ok {
 			s += entry["editor"]
