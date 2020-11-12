@@ -254,7 +254,7 @@ func EntryToMarkdown(entry map[string]string) string {
 		s += "(" + entry["year"] + ")"
 		s += " "
 		s += "'" + entry["title"] + "'"
-		s += ", " + entry["url"]
+		s += ", <" + entry["url"] + ">"
 	default:
 		if _, ok := entry["editor"]; ok {
 			s += entry["editor"]
