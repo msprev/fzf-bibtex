@@ -4,14 +4,14 @@
 
 A BibTeX source for fzf.
 
-- Blazingly fast, even with large BibTeX files
+- Blazingly fast, even with extremely large BibTeX files
 - Caches results intelligently (hence the speed)
 - Uses a well-understood framework to parse BibTeX ([bibtool](https://ctan.org/pkg/bibtool))
 - Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
 - Supports multiple BibTeX files
 - Supports cross references (thanks to [\@cao](https://github.com/cao))
 - Supports multiple citation formats
-- Basic BibLaTeX support (thanks to [\@ashwinvis](https://github.com/ashwinvis))
+- BibLaTeX support (thanks to [\@ashwinvis](https://github.com/ashwinvis))
 
 ## Example use
 
@@ -60,6 +60,20 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls@latest
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown@latest
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite@latest
 ```
+
+### Why these dependencies
+
+Parsing BibTeX is a non-trivial task.  It is best to do it in a
+well-understood and reliable way.  I use an extremely stable, reliable,
+and widely used parser, `bibtool`, which is the benchmark for parsing
+BibTeX.  Writing my own BibTeX parser from scratch, or using someone
+else's half-written module, would be a recipe for bugs.
+
+My goal was a tool with no noticable lag in searching, even for
+extremely large BibTeX files.  I wrote an early verion of this tool with
+Python and I was dissatified with the performance.  Rewriting it in a
+language like Go that is both compiled and optimised for IO dealt with
+any performance issues and achieved the responsiveness I wanted.
 
 ## Command line use
 
