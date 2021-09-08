@@ -61,19 +61,14 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown@latest
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite@latest
 ```
 
-### Why these dependencies
+### Why these dependencies?
 
 Parsing BibTeX is a non-trivial task.  It is best to do it in a
-well-understood and reliable way.  I use an extremely stable, reliable,
-and widely used parser, `bibtool`, which is the benchmark for parsing
-BibTeX.  Writing my own BibTeX parser from scratch, or using someone
-else's half-written module, would be a recipe for bugs.
-
-My goal was a tool with no noticable lag in searching, even for
-extremely large BibTeX files.  I wrote an early verion of this tool with
-Python and I was dissatified with the performance.  Rewriting it in a
-language like Go that is both compiled and optimised for IO dealt with
-any performance issues and achieved the responsiveness I wanted.
+well-understood and reliable way.  fzf-bibtex uses an extremely stable,
+reliable, and widely used parser, `bibtool`, which is the benchmark for
+parsing BibTeX.  The goal of fzf-bibtex is to have no noticable delay
+when searching, even for extremely large BibTeX files.  Writing it with
+Go allows the desired responsiveness to be achieved.
 
 ## Command line use
 
