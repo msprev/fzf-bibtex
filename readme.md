@@ -240,6 +240,7 @@ keep.field { pages }
 keep.field { school }
 keep.field { volume }
 keep.field { url }
+keep.field { doi }
 rename.field { year = date if year = ".+" }
 add.field { year = "%-4.1d(date)" }
 new.entry.type{Article}
