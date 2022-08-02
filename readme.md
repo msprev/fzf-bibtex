@@ -7,7 +7,7 @@ A BibTeX source for fzf.
 - Blazingly fast, even with extremely large BibTeX files
 - Caches results intelligently (hence the speed)
 - Uses a well-understood framework to parse BibTeX ([bibtool](https://ctan.org/pkg/bibtool))
-- Vim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
+- Vim/Neovim integration (via [fzf.vim](https://github.com/junegunn/fzf.vim))
 - Supports multiple BibTeX files
 - Supports cross references (thanks to [\@cao](https://github.com/cao))
 - Supports multiple citation formats
@@ -49,7 +49,7 @@ brew install bib-tool
 brew install go
 ```
 
-If you want vim integration:
+If you want vim/neovim integration:
 
 - [fzf.vim](https://github.com/junegunn/fzf.vim)
 
@@ -124,9 +124,9 @@ Pretty print items (in markdown) for selected `.bib` entries passed over stdin.
 
 Cache directory may be set using the same environment variable as bibtex-ls.
 
-## Vim integration
+## Vim/Neovim integration
 
-Assuming the executables installed above are available to Vim in your file path, add this to your `vimrc` file:
+Assuming the executables installed above are available to Vim in your file path, add this to your `vimrc` file (or, for neovim, your `init.vim`):
 
 ``` {.vim}
 let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
@@ -217,89 +217,10 @@ bibtool references.bib -o parsed.bib
 ```
 
 The BibTeX fields that fzf-bibtex asks bibtool to extract from your file
-can be seen by running bibtool with this `rsc` file:
+can be seen by running bibtool with the `rsc` file [specified by this
+string](https://github.com/msprev/fzf-bibtex/blob/ae9b939fb30448a85a6b18
+370bfdab4a451eeba4/bibtex/bibtex.go#L57).
 
-```
-expand.macros = On
-expand.crossref = On
-preserve.keys = On
-preserve.key.case = On
-print.line.length { 1000 }
-keep.field { date }
-keep.field { author }
-keep.field { title }
-keep.field { year }
-keep.field { journal }
-keep.field { journaltitle }
-keep.field { booktitle }
-keep.field { editor }
-keep.field { publisher }
-keep.field { address }
-keep.field { location }
-keep.field { pages }
-keep.field { school }
-keep.field { volume }
-keep.field { url }
-keep.field { doi }
-rename.field { year = date if year = ".+" }
-add.field { year = "%-4.1d(date)" }
-new.entry.type{Article}
-new.entry.type{Book}
-new.entry.type{MVBook}
-new.entry.type{InBook}
-new.entry.type{BookInBook}
-new.entry.type{SuppBook}
-new.entry.type{Booklet}
-new.entry.type{Collection}
-new.entry.type{MVCollection}
-new.entry.type{InCollection}
-new.entry.type{SuppCollection}
-new.entry.type{Manual}
-new.entry.type{Misc}
-new.entry.type{Online}
-new.entry.type{Patent}
-new.entry.type{Periodical}
-new.entry.type{SuppPeriodical}
-new.entry.type{Proceedings}
-new.entry.type{MVProceedings}
-new.entry.type{Reference}
-new.entry.type{MVReference}
-new.entry.type{Inreference}
-new.entry.type{Report}
-new.entry.type{Set}
-new.entry.type{Thesis}
-new.entry.type{Unpublished}
-new.entry.type{Cdata}
-new.entry.type{CustomA}
-new.entry.type{CustomB}
-new.entry.type{CustomC}
-new.entry.type{CustomD}
-new.entry.type{CustomE}
-new.entry.type{CustomF}
-new.entry.type{Conference}
-new.entry.type{Electronic}
-new.entry.type{MasterThesis}
-new.entry.type{PhdThesis}
-new.entry.type{TechReport}
-new.entry.type{WWW}
-new.entry.type{Artwork}
-new.entry.type{Audio}
-new.entry.type{BibNote}
-new.entry.type{Commentary}
-new.entry.type{Image}
-new.entry.type{Jurisdiction}
-new.entry.type{Legislation}
-new.entry.type{Legal}
-new.entry.type{Letter}
-new.entry.type{Movie}
-new.entry.type{Music}
-new.entry.type{Performance}
-new.entry.type{Review}
-new.entry.type{Software}
-new.entry.type{Standard}
-new.entry.type{Video}
-new.entry.type{XData}
-```
 
 ## Release notes
 
