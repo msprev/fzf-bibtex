@@ -217,9 +217,7 @@ bibtool references.bib -o parsed.bib
 ```
 
 The BibTeX fields that fzf-bibtex asks bibtool to extract from your file
-can be seen by running bibtool with the `rsc` file [specified by this
-string](https://github.com/msprev/fzf-bibtex/blob/ae9b939fb30448a85a6b18
-370bfdab4a451eeba4/bibtex/bibtex.go#L57).
+can be seen by running bibtool with the `rsc` file [this string](https://github.com/msprev/fzf-bibtex/blob/ae9b939fb30448a85a6b18370bfdab4a451eeba4/bibtex/bibtex.go#L57).
 
 
 ## Release notes
