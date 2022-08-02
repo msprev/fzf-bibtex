@@ -121,6 +121,14 @@ new.entry.type{Artwork}
 new.entry.type{Audio}
 new.entry.type{BibNote}
 new.entry.type{Commentary}
+new.entry.type{MVCommentary}
+new.entry.type{InCommentary}
+new.entry.type{Series}
+new.entry.type{AncientText}
+new.entry.type{ClassicText}
+new.entry.type{Lexicon}
+new.entry.type{MVLexicon}
+new.entry.type{InLexicon}
 new.entry.type{Image}
 new.entry.type{Jurisdiction}
 new.entry.type{Legislation}
