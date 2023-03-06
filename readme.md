@@ -17,19 +17,19 @@ A BibTeX source for fzf.
 
 To select items using fzf from a `.bib` file (as in image above):
 
-``` {.bash}
+```shell
 bibtex-ls references.bib | fzf --multi --ansi
 ```
 
 To cite items (using the pandoc '@' format) from a `.bib` file:
 
-``` {.bash}
+```shell
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-cite
 ```
 
 To pretty print items (in markdown) from a `.bib` file:
 
-``` {.bash}
+```shell
 bibtex-ls references.bib | fzf --multi --ansi | bibtex-markdown references.bib
 ```
 
@@ -43,7 +43,7 @@ bibtex-ls references.bib | fzf --multi --ansi | bibtex-markdown references.bib
 
 On the Mac, these can be installed by [homebrew](https://brew.sh/):
 
-``` {.bash}
+```shell
 brew install fzf
 brew install bib-tool
 brew install go
@@ -62,7 +62,7 @@ can install both if you really want.
 
 ### Installation
 
-``` {.bash}
+```shell
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls@latest
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown@latest
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite@latest
@@ -81,7 +81,7 @@ Go allows the desired responsiveness to be achieved.
 
 ### bibtex-ls
 
-``` {.bash}
+```shell
 bibtex-ls [-cache=...] [file1.bib file2.bib ...]
 ```
 
@@ -103,7 +103,7 @@ If you change the fzf-bibtex codebase, make sure to flush the cache by `touch`in
 
 ### bibtex-cite
 
-``` {.bash}
+```shell
 bibtex-cite [-mode=pandoc|latex] [-prefix=...] [-postfix=...] [-separator=...]
 ```
 
@@ -123,7 +123,7 @@ citations.  `-mode` options:
 
 ### bibtex-markdown
 
-``` {.bash}
+```shell
 bibtex-markdown [-cache=...] [file1.bib file2.bib ...]
 ```
 
@@ -137,7 +137,7 @@ Assuming the executables installed above are available to Vim in your file path,
 
 <details><summary>fzf-vim integration (normal mode)</summary>
 
-``` {.vim}
+```vim
 let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
 let $FZF_BIBTEX_SOURCES = 'PATH-TO-BIBTEX-FILE'
 
@@ -172,7 +172,7 @@ nnoremap <silent> <leader>m :call fzf#run({
 
 <details><summary>fzf-vim integration (insert mode)</summary>
 
-``` {.vim}
+```vim
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
     execute ':normal! a' . r
@@ -194,7 +194,7 @@ Alternative insert mode mapping (`@@`) that detects .bib files in parent, curren
 
 <details><summary>fzf-vim integration (alternative insert mapping -- automatically reads from nearby .bib files)</summary>
 
-``` {.vim}
+```vim
 function! Bibtex_ls()
   let bibfiles = (
       \ globpath('.', '*.bib', v:true, v:true) +
@@ -357,7 +357,7 @@ being parsed correctly.  You can locate the cause, and correct it, by
 running bibtool directly on your BibTeX file from the command line.  Look
 at any errors reported from:
 
-``` {.bash}
+```shell
 bibtool references.bib -o parsed.bib
 ```
 
