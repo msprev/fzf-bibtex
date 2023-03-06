@@ -49,16 +49,17 @@ brew install bib-tool
 brew install go
 ```
 
-If you want vim/neovim integration:
+If you want vim/neovim integration, either:
 
 - [fzf.vim](https://github.com/junegunn/fzf.vim)
 
-or, if you like lua (for neovim only):
+or, if you prefer lua (for neovim only):
 
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua)
 
-NB.  You only need one of the other of these (see mappings below).  You
-can install both if you really want.
+NB.  You only need one or other of these (see mappings below). You can
+install both if you really want.
+
 
 ### Installation
 
@@ -336,6 +337,8 @@ vim.api.nvim_create_autocmd("Filetype", {
 
 </details>
 
+Mappings will only be active for `tex` or `markdown` filetypes:
+
 - `<leader>c` will bring up fzf to cite selected items
     - `<cr>`: insert with default citation style
     - `<alt-a>`: insert citation with pandoc @ style
@@ -344,7 +347,6 @@ vim.api.nvim_create_autocmd("Filetype", {
     - `<alt-m>`: pretty print selected items in markdown
 - `@@` in insert mode brings up the same fzf menu.
 
-Mappings will only be active for `tex` or `markdown` filetypes.
 
 
 ## Errors?
