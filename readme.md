@@ -250,7 +250,7 @@ end
 local citet = function(selected, opts)
     local result = vim.fn.system('bibtex-cite -prefix="\\citet{" -postfix="}" -separator=","', selected)
     vim.api.nvim_put({ result }, "c", false, true)
-    if opts.mode == "i" then
+    if opts.fzf_bibtex.mode == "i" then
         vim.api.nvim_feedkeys("i", "n", true)
     end
 end
@@ -258,7 +258,7 @@ end
 local citep = function(selected, opts)
     local result = vim.fn.system('bibtex-cite -prefix="\\citep{" -postfix="}" -separator=","', selected)
     vim.api.nvim_put({ result }, "c", false, true)
-    if opts.mode == "i" then
+    if opts.fzf_bibtex.mode == "i" then
         vim.api.nvim_feedkeys("i", "n", true)
     end
 end
@@ -271,7 +271,7 @@ local markdown_print = function(selected, opts)
         table.insert(result_lines, line)
     end
     vim.api.nvim_put(result_lines, "l", true, true)
-    if opts.mode == "i" then
+    if opts.fzf_bibtex.mode == "i" then
         vim.api.nvim_feedkeys("i", "n", true)
     end
 end
