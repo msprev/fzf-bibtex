@@ -228,7 +228,7 @@ code inside to your `init.lua` or similar config file.
 
 <details><summary>fzf-lua integration</summary>
 
-``` {.lua}
+```lua
 -- default list of bibfiles
 -- can be overriden by changing vim.b.bibfiles inside buffer
 local default_bibfiles = {
