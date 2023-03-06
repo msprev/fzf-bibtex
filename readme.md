@@ -136,6 +136,7 @@ Cache directory may be set using the same environment variable as bibtex-ls.
 Assuming the executables installed above are available to Vim in your file path, add the following code to your `vimrc` file (or, for neovim, your `init.vim`):
 
 <details><summary>fzf-vim integration (normal mode)</summary>
+
 ``` {.vim}
 let $FZF_BIBTEX_CACHEDIR = 'PATH-TO-CACHE-DIR'
 let $FZF_BIBTEX_SOURCES = 'PATH-TO-BIBTEX-FILE'
@@ -162,6 +163,7 @@ nnoremap <silent> <leader>m :call fzf#run({
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
 ```
+
 </details>
 
 - `<leader>c` will bring up fzf to cite selected items
@@ -169,6 +171,7 @@ nnoremap <silent> <leader>m :call fzf#run({
 
 
 <details><summary>fzf-vim integration (insert mode)</summary>
+
 ``` {.vim}
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
@@ -182,6 +185,7 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 ```
+
 </details>
 
 - `@@` will bring up fzf to cite selected items
@@ -189,7 +193,8 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
 Alternative insert mode mapping (`@@`) that detects .bib files in parent, current or child directories (thanks to [\@ashwinvis](https://github.com/ashwinvis)):
 
 <details><summary>fzf-vim integration (alternative insert mapping -- automatically reads from nearby .bib files)</summary>
-```
+
+``` {.vim}
 function! Bibtex_ls()
   let bibfiles = (
       \ globpath('.', '*.bib', v:true, v:true) +
@@ -213,6 +218,7 @@ inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 ```
+
 </details>
 
 ## fzf-lua integration
@@ -329,6 +335,7 @@ vim.api.nvim_create_autocmd("Filetype", {
     end
 })
 ```
+
 </details>
 
 - `<leader>c` will bring up fzf to cite selected items
