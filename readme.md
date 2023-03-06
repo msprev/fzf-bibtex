@@ -233,8 +233,6 @@ code inside to your `init.lua` or similar config file.
 -- can be overriden by changing vim.b.bibfiles inside buffer
 local default_bibfiles = {
     }
--- default behaviour: doing nothing, unless in right filetype
-vim.keymap.set("n", "[fzf]c", "<nop>")
 
 -- default cache directory
 local cachedir = vim.fn.stdpath("state") .. "/fzf-bibtex/"
