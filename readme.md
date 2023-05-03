@@ -73,10 +73,10 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite@latest
 
 Parsing BibTeX is a non-trivial task.  It is best to do it in a
 well-understood and reliable way.  fzf-bibtex uses an extremely stable,
-reliable, and widely used parser, `bibtool`, which is the benchmark for
-parsing BibTeX.  The goal of fzf-bibtex is to have no noticable delay
-when searching, even for extremely large BibTeX files.  Writing it with
-Go allows the desired responsiveness to be achieved.
+reliable, and widely used parser, `bibtool`.  The goal of fzf-bibtex is
+to have no noticable delay when searching, even for extremely large
+BibTeX files.  Writing it with Go allows the desired responsiveness to
+be achieved.
 
 ## Command line use
 
@@ -233,9 +233,11 @@ code inside to your `init.lua` or similar config file.
 -- default list of bibfiles
 -- can be overriden by changing vim.b.bibfiles inside buffer
 local default_bibfiles = {
+    -- put your default bibfiles here
     }
 
 -- default cache directory
+-- uses neovim's stdpath to set up a cache - no need to fiddle with this
 local cachedir = vim.fn.stdpath("state") .. "/fzf-bibtex/"
 
 -- actions
