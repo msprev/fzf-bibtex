@@ -116,7 +116,6 @@ new.entry.type{MasterThesis}
 new.entry.type{PhdThesis}
 new.entry.type{TechReport}
 new.entry.type{WWW}
-
 new.entry.type{Artwork}
 new.entry.type{Audio}
 new.entry.type{BibNote}
