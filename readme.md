@@ -319,7 +319,7 @@ local fzf_bibtex_menu = function(mode)
                         ['alt-m'] = markdown_print,
                 },
                 fzf_bibtex = { ['mode'] = mode },
-                fzf_opts = { ['--prompt'] = 'BibTeX> ',['--header'] = header }
+                fzf_opts = { ["--multi"] = true, ['--prompt'] = 'BibTeX> ', ['--header'] = header }
             })
     end
 end
